@@ -19,9 +19,10 @@ public class Main {
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 		
+		gamePanel.setUpGame();
 		gamePanel.startGameThread();
 	}
 
 }
 
-// Video 8 00:00
+// Video 10 00:00
