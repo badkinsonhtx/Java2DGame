@@ -118,12 +118,14 @@ public class Player extends Entity {
 			String objectName = gp.obj[i].name;
 			switch(objectName) {
 			case "Key":
+				gp.playSE(1);
 				hasKey++;
 				gp.obj[i] = null;
 				System.out.println("Keys: " + hasKey);
 				break;
 			case "Door":
 				if(hasKey > 0) {
+					gp.playSE(3);
 					gp.obj[i] = null;
 					hasKey--;
 				}
@@ -133,7 +135,20 @@ public class Player extends Entity {
 				
 				break;
 			case "Boots":
-				
+				gp.playSE(2);
+    			System.out.println(speed);
+    			speed += 4;
+    			System.out.println(speed);
+    			gp.obj[i] = null;
+    			//gp.ui.showMessage("Speed up!");
+    			Thread t1 = new Thread(new Runnable() {
+    			    @Override
+    			    public void run() {
+    			    	bootsPowerUp();
+    			    }//int length = (int)g2.getFontMetrics().getStringBounds(text,  g2).getWidth();
+    			});  
+    			t1.start();
+    			System.out.println(t1.isAlive());
 				break;
 			default:
 				break;
@@ -181,4 +196,17 @@ public class Player extends Entity {
 		}
 		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
 	}
+	
+	private void bootsPowerUp() {
+    	long lastTime = System.currentTimeMillis();
+    	long timer = 0;
+        while(timer <= 30000) {
+        	long currentTime = System.currentTimeMillis();
+        	timer += (currentTime - lastTime);
+			lastTime = currentTime;
+        }
+        speed -= 4;
+        System.out.println(speed);
+    
+    }
 }
