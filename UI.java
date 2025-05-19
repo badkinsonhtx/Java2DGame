@@ -4,6 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 
 import object.Key;
@@ -18,7 +24,7 @@ public class UI {
 	int messageCounter;
 	public boolean gameOver = false;
 	
-	double playTime;
+	double playTime, bestTime;
 	DecimalFormat df = new DecimalFormat("#0.00");
 	
 	public UI(GamePanel gp) {
@@ -61,7 +67,7 @@ public class UI {
 			x = gp.screenWidth / 2 - textLength / 2;
 			y = gp.screenHeight / 2 + (gp.tileSize * 2);
 			g2.drawString(text, x, y);
-			
+			checkAndUpdateBestTime();
 			gp.gameThread = null;
 		}else {
 			g2.setFont(arial_40);
@@ -85,5 +91,39 @@ public class UI {
 				}
 			}
 		}
+	}
+	
+	public void checkAndUpdateBestTime() {
+	    File dir = new File("persist/");
+	    if(!dir.exists()) {
+	    	dir.mkdirs();
+	    }
+	    
+	    File file = new File(dir, "besttime.txt");
+	    bestTime = Double.MAX_VALUE;
+
+	    // Read current best time
+	    if (file.exists()) {
+	        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+	            String line = br.readLine();
+	            if (line != null && !line.isEmpty()) {
+	                bestTime = Double.parseDouble(line);
+	            }
+	        } catch (IOException | NumberFormatException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    System.out.println(bestTime);
+
+	    // Compare and update if playTime is better
+	    if (playTime < bestTime) {
+	    	bestTime = playTime;
+	    	System.out.println(bestTime);
+	        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+	            bw.write(String.valueOf(playTime));
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
 }
