@@ -19,7 +19,7 @@ public class Player extends Entity {
 	
 	public final int screenX;
 	public final int screenY;
-	public int hasKey = 0;
+	//public int hasKey = 0;
 	int standCounter = 0;
 	boolean moving = false;
 	int pixelCounter = 0;
@@ -141,7 +141,7 @@ public class Player extends Entity {
 		
 	public void pickUpObject(int i) {
 		if(i != 999) {
-			String objectName = gp.obj[i].name;
+			/*String objectName = gp.obj[i].name;
 			switch(objectName) {
 			case "Key":
 				gp.playSE(1);
@@ -184,7 +184,8 @@ public class Player extends Entity {
 				break;
 			default:
 				break;
-			}
+			}*/
+			
 		}
 	}
 	
@@ -232,7 +233,7 @@ public class Player extends Entity {
 		//g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 	}
 	
-	private void bootsPowerUp() {
+	/*private void bootsPowerUp() {
     	long lastTime = System.currentTimeMillis();
     	long timer = 0;
         while(timer <= 30000) {
@@ -243,5 +244,6 @@ public class Player extends Entity {
         speed -= 4;
         System.out.println(speed);
     
-    }
+    }*/
+	
 }
