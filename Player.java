@@ -14,7 +14,6 @@ import main.UtilityTool;
 
 public class Player extends Entity {
 
-	GamePanel gp;
 	KeyHandler keyH;
 	
 	public final int screenX;
@@ -25,7 +24,7 @@ public class Player extends Entity {
 	int pixelCounter = 0;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
-		this.gp = gp;
+		super(gp);
 		this.keyH = keyH;
 		
 		screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
@@ -51,27 +50,16 @@ public class Player extends Entity {
 	}
 	
 	public void getPlayerImage() {
-		up1 = setUp("boy_up_1");
-		up2 = setUp("boy_up_2");
-		down1 = setUp("boy_down_1");
-		down2 = setUp("boy_down_2");
-		left1 = setUp("boy_left_1");
-		left2 = setUp("boy_left_2");
-		right1 = setUp("boy_right_1");
-		right2 = setUp("boy_right_2");
+		up1 = setUp("/player/boy_up_1");
+		up2 = setUp("/player/boy_up_2");
+		down1 = setUp("/player/boy_down_1");
+		down2 = setUp("/player/boy_down_2");
+		left1 = setUp("/player/boy_left_1");
+		left2 = setUp("/player/boy_left_2");
+		right1 = setUp("/player/boy_right_1");
+		right2 = setUp("/player/boy_right_2");
 	}
 	
-	public BufferedImage setUp(String imageName) {
-		UtilityTool uTool = new UtilityTool();
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		return image;
-	}
 	public void update() {
         if(moving == false) {
             if(keyH.upPressed == true || keyH.downPressed == true || 
