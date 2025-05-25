@@ -39,6 +39,8 @@ public class Entity {
 		setAction();
 		collisionOn = false;
 		gp.cc.checkTile(this);
+		gp.cc.checkObject(this, false);
+		gp.cc.checkPlayer(this);
 		if(collisionOn == false) {
     		switch(direction) {
     			case "up":
