@@ -26,6 +26,7 @@ public class UI {
 	public String message = "";
 	int messageCounter;
 	public boolean gameOver = false;
+	public String currentDialogue = "";
 	
 	/*double playTime, bestTime;
 	DecimalFormat df = new DecimalFormat("#0.00");*/
@@ -76,6 +77,10 @@ public class UI {
 		int width = gp.screenWidth - (gp.tileSize * 4);
 		int height = gp.tileSize * 4;
 		drawSubWindow(x, y, width, height);
+		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 32F));
+		x += gp.tileSize;
+		y += gp.tileSize;
+		g2.drawString(currentDialogue, x, y);
 	}
 	
 	public void drawSubWindow(int x, int y, int width, int height) {
