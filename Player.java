@@ -90,6 +90,11 @@ public class Player extends Entity {
 			   	}
 			}	
     	}
+        
+        // Check NPC Collision
+        int npcIndex = gp.cc.checkEntity(this, gp.npc);
+        interactNPC(npcIndex);
+        
         if(moving == true) {
             // If Collision Is False, Player Can Move
         	if(collisionOn == false) {
@@ -173,6 +178,13 @@ public class Player extends Entity {
 			default:
 				break;
 			}*/
+			
+		}
+	}
+	
+	public void interactNPC(int i) {
+		if(i != 999) {
+			gp.gameState = gp.dialogueState;
 			
 		}
 	}
