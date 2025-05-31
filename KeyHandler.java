@@ -18,6 +18,39 @@ public class KeyHandler implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int code = e.getKeyCode();
+		// Title State
+		if(gp.gameState == gp.titleState) {
+			if(code == KeyEvent.VK_UP) {
+				if(gp.ui.commandNum == 0) {
+					gp.ui.commandNum = 2;
+				}else {
+					gp.ui.commandNum--;
+				}
+			}else if(code == KeyEvent.VK_DOWN) {
+				if(gp.ui.commandNum == 2) {
+					gp.ui.commandNum = 0;
+				}else {
+					gp.ui.commandNum++;
+				}
+			}else if(code == KeyEvent.VK_ESCAPE) {
+				System.exit(0);
+			}
+			else if(code == KeyEvent.VK_ENTER) {
+				switch(gp.ui.commandNum) {
+				case 0:
+					gp.gameState = gp.playState;
+					gp.playMusic(0);
+					break;
+				case 1:
+					break;
+				case 2:
+					System.exit(0);
+					break;
+				default:
+					break;
+				}
+			}
+		}
 		switch(code) {
 		case KeyEvent.VK_UP:
 			upPressed = true;
