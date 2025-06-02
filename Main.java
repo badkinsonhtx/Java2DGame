@@ -22,7 +22,6 @@ public class Main {
 		gamePanel.setUpGame();
 		gamePanel.startGameThread();
 	}
-
 }
 
-// Video 20 02:32
+// Video 2 0:00

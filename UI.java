@@ -13,15 +13,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
+import object.Health;
 import object.Key;
+import object.SuperObject;
 
 public class UI {
 
 	GamePanel gp;
 	Graphics2D g2;
 	Font arial_40, arial_80;
-	
-	//BufferedImage keyImage;
+	BufferedImage heart_full, heart_half, heart_blank;
 	public boolean messageOn = false;
 	public String message = "";
 	int messageCounter;
@@ -38,6 +39,12 @@ public class UI {
 		arial_80 = new Font("Arial", Font.BOLD, 80);
 		//Key key = new Key(gp);
 		//keyImage = key.image;
+		
+		// Create HUD Object
+		SuperObject health = new Health(gp);
+		heart_full = health.image;
+		heart_half = health.image2;
+		heart_blank = health.image3;
 	}
 	
 	public void showMessage(String text) {
@@ -56,15 +63,46 @@ public class UI {
 		}
 		// Play State
 		if(gp.gameState == gp.playState) {
-			
+			drawPlayerLife();
 		}
 		// Pause State
 		if(gp.gameState == gp.pauseState) {
+			drawPlayerLife();
 			drawPauseScreen();
 		}
 		// Dialogue State
 		if(gp.gameState == gp.dialogueState) {
+			drawPlayerLife();
 			drawDialogueScreen();
+		}
+	}
+	
+	public void drawPlayerLife() {
+		int x = gp.tileSize / 2;
+		int y = gp.tileSize / 2;
+		int i = 0;
+		
+		// Draw Blank Heart
+		while(i < gp.player.maxLife / 2) {
+			g2.drawImage(heart_blank, x, y, null);
+			i++;
+			x += gp.tileSize;
+		}
+		
+		// Reset
+		x = gp.tileSize / 2;
+		y = gp.tileSize / 2;
+		i = 0;
+		
+		// Draw Current life
+		while(i < gp.player.life) {
+			g2.drawImage(heart_half, x, y, null);
+			i++;
+			if(i < gp.player.life) {
+				g2.drawImage(heart_full, x, y, null);
+			}
+			i++;
+			x += gp.tileSize;
 		}
 	}
 	
