@@ -47,6 +47,10 @@ public class Player extends Entity {
 		worldY = gp.tileSize * 21;
 		speed = 4;
 		direction = "down";
+		
+		// Player Status
+		maxLife = 6;
+		life = maxLife;
 	}
 	
 	public void getPlayerImage() {
@@ -95,6 +99,10 @@ public class Player extends Entity {
         int npcIndex = gp.cc.checkEntity(this, gp.npc);
         interactNPC(npcIndex);
         
+        // Check Event
+        gp.eHandler.checkEvent();
+        gp.keyH.enterPressed = false;
+        
         if(moving == true) {
             // If Collision Is False, Player Can Move
         	if(collisionOn == false) {
@@ -134,9 +142,9 @@ public class Player extends Entity {
 		
 	public void pickUpObject(int i) {
 		if(i != 999) {
-			/*String objectName = gp.obj[i].name;
+			String objectName = gp.obj[i].name;
 			switch(objectName) {
-			case "Key":
+			/*case "Key":
 				gp.playSE(1);
 				hasKey++;
 				gp.obj[i] = null;
@@ -152,7 +160,7 @@ public class Player extends Entity {
 					gp.ui.showMessage("You Need A Key");
 				}
 				System.out.println("Keys: " + hasKey);
-				break;
+				break;*/
 			case "Boots":
 				gp.playSE(2);
     			System.out.println(speed);
@@ -170,15 +178,14 @@ public class Player extends Entity {
     			System.out.println(t1.isAlive());
     			t1 = null;
 				break;
-			case "Chest":
+			/*case "Chest":
 				gp.ui.gameOver = true;
 				gp.stopMusic();
 				gp.playSE(4);
 				break;
 			default:
-				break;
-			}*/
-			
+				break;*/
+			}
 		}
 	}
 	
@@ -189,7 +196,7 @@ public class Player extends Entity {
 				gp.npc[i].speak();
 			}
 		}
-		gp.keyH.enterPressed = false;
+		
 	}
 	
 	public void draw(Graphics2D g2) {
@@ -232,11 +239,11 @@ public class Player extends Entity {
 		}
 		g2.drawImage(image, screenX, screenY, null);
 		// Debug
-		//g2.setColor(Color.red);
-		//g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+		g2.setColor(Color.red);
+		g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
 	}
 	
-	/*private void bootsPowerUp() {
+	private void bootsPowerUp() {
     	long lastTime = System.currentTimeMillis();
     	long timer = 0;
         while(timer <= 30000) {
@@ -247,6 +254,6 @@ public class Player extends Entity {
         speed -= 4;
         System.out.println(speed);
     
-    }*/
+    }
 	
 }
